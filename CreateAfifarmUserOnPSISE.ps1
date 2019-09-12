@@ -1,5 +1,5 @@
 Write-Output "start powershell script"
-“C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ISE.exe”
+"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ISE.exe"
 Write-Output "open Powershell ISE as admin"
 $Pwd = ConvertTo-SecureString "Afifarm15148" -AsPlainText -Force
 Write-Output "create secure string"
