@@ -1,7 +1,7 @@
+Write-Output "started powershell script"
 $Pwd = ConvertTo-SecureString "Afifarm15148" -AsPlainText -Force
-New-LocalUser "Demo" -Password $Pwd -FullName "Demo user" -Description "Demo user account." -PasswordNeverExpires 
+Write-Output "created secure string"
+New-LocalUser "Demo" -Password $Pwd -FullName "Demo user" -Description "Demo user account." -PasswordNeverExpires
+Write-Output "created Demo user"
 Add-LocalGroupMember -Group "Administrators" -Member "Demo"
-
-$Pwd = ConvertTo-SecureString "Quali123456" -AsPlainText -Force
-New-LocalUser "Afifarm" -Password $Pwd -FullName "Afifarm user" -Description "Afifarm user account." -PasswordNeverExpires 
-Add-LocalGroupMember -Group "Event Log Readers" -Member "Afifarm"
+Write-Output "Add user to Administrators group"
