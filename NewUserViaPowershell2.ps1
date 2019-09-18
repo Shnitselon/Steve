@@ -11,6 +11,9 @@ Add-Content -Path $dir_path -Value "create 'Demo' user" -Force
 Add-LocalGroupMember -Group "Administrators" -Member "Demo"
 Add-Content -Path $dir_path -Value "Assign to 'Administrators' group" -Force
 
-Copy-Item -Path "C:\AFIFARM\DATA\*" -Destination "C:\test" -Recurse
-Add-Content -Path $dir_path -Value "copy contents to 'C:\test'" -Force
+Copy-Item -Path "C:\AFIFARM\DATA\*" -Destination "C:\Users\Demo\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup" -Recurse
+Add-Content -Path $dir_path -Value "copy contents to 'C:\Users\Demo\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup'" -Force
+
+Rename-Computer -ComputerName "localhost" -NewName "Afifarm53new" -Force -Restart
+Add-Content -Path $dir_path -Value "rename machine to Afifarm53new!" -Force
 Add-Content -Path $dir_path -Value "success!" -Force
