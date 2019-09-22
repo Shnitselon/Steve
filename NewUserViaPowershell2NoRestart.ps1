@@ -19,6 +19,6 @@ Copy-Item -Path "C:\Users\admin\Documents\SQL Server Management Studio\*" -Desti
 Add-Content -Path $dir_path -Value "copy contents to  Demo's Startup folder" -Force
 
 Add-Content -Path $dir_path -Value "restarting machine..." -Force
-Rename-Computer -ComputerName "localhost" -NewName "Afifarm53new" -Force -restart
+Rename-Computer -ComputerName "localhost" -NewName "Afifarm53new" -Force
 
 Add-Content -Path $dir_path -Value "success!" -Force
