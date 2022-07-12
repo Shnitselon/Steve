@@ -1,0 +1,66 @@
+kind: blueprint
+spec: 2
+spec_version: 2-preview
+description: Infra microservices application deployed on K8S with TF and RDS deployed with TF
+
+inputs:
+
+  db_size:
+    type: string
+    display-style: normal
+    default: "small"
+    description: "The instance type of the RDS instance. Small, medium, or large."
+
+  db_engine_version:
+    type: string
+    display-style: normal
+    default: "8.0.26"
+    description: "Version of RDS Engine. Default is 5.7"
+
+grains:
+  mySqlDB:
+    kind: terraform
+    spec:
+      source:
+        store: assets
+        path: terraform/rds
+      host:
+        name: demo-prod
+        service-account: app-sa
+      inputs:
+        - sandbox_id: '{{ sandboxid | downcase }}'
+        - size: '{{ .inputs.db_size }}'
+        - allocated_storage: 20
+        - db_name: demo_db
+        - engine_version: '{{ .inputs.db_engine_version }}'
+        - engine: MySQL
+        - username: adminuser
+        - vpc_id: vpc-02e3bca90b081cd0f
+        - region: us-east-1
+      outputs:
+        - hostname
+        - connection_string
+
+  s3Bucket:
+    kind: terraform
+    spec:
+      source:
+        store: assets
+        path: terraform/s3
+      host:
+        name: demo-prod
+        service-account: app-sa
+      inputs:
+        - region: us-east-1
+        - acl: private
+        - name: 'robotshop-s3-{{ sandboxid | downcase }}'
+      outputs:
+        - s3_bucket_arn
+
+outputs:
+  DB_hostname:
+    value: '{{ .grains.mySqlDB.outputs.hostname }}'
+  S3_bucket_arn:
+    value: '{{ .grains.s3Bucket.outputs.s3_bucket_arn }}'
+  connection_string:
+    value: '{{ .grains.mySqlDB.outputs.connection_string}}'
